@@ -16,11 +16,11 @@
   "version": 1,
   "approval": {
     "status": "approved",
-    "rationale": "The test reproduces INC-482 on the broken commit and passes on the fix.",
-    "approved_at": "2026-10-29T22:32:50.543Z",
     "approver_name": "Diwas Timsina",
     "approver_role": "Payments service owner",
-    "contract_hash": "8c9fce54310063363f68a2991a80e0942fb19ae3ca6a7533f06e4c1d5f0e8bc5"
+    "approved_at": "2026-10-29T22:40:51.742Z",
+    "rationale": "Narrow the protection to the payments code it guards.",
+    "contract_hash": "5dca7498df950fc5d70d34bb577d325c3899bf1c6c1e56852f7e66eec6a85a62"
   },
   "behavior": {
     "inputs": {
