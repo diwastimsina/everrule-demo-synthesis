@@ -1,0 +1,72 @@
+{
+  "schema": "everrule-contract/v1",
+  "hash_algorithm": "sha256",
+  "id": "ER-INC-482",
+  "version": 1,
+  "incident": {
+    "id": "INC-482",
+    "title": "INC-482: duplicate posted charge on retry (synthetic)",
+    "fix_pr": "https://github.com/diwastimsina/everrule-demo-synthesis/pull/1"
+  },
+  "failure_class": "duplicate_side_effect",
+  "behavior": {
+    "profile": {
+      "id": "duplicate_side_effect.sequential",
+      "version": 1
+    },
+    "operation": "payments.process",
+    "inputs": {
+      "request_type": "payment_request",
+      "identity_type": "payment_idempotency_key"
+    },
+    "preconditions": {
+      "request_is_valid": true,
+      "initial_successful_effect_count": 0
+    },
+    "observation": {
+      "concept": "payments.posted_charge",
+      "measure": "successful_effect_count",
+      "correlation": "same_request_identity"
+    },
+    "expectations": {
+      "after_first_invocation": 1,
+      "after_repeat_invocation": 1,
+      "first_outcome": "success",
+      "repeat_outcome": "success"
+    },
+    "execution": {
+      "ordering": "sequential",
+      "completion": "await_each_invocation",
+      "isolation": "fresh_scenario_state",
+      "effects_visibility": "immediate_on_completion",
+      "side_effect_environment": "test_only"
+    }
+  },
+  "requirement": {
+    "statement": "A retry must never create a second posted charge for the same idempotency key.",
+    "assumptions": [
+      "The idempotency key is supplied by the caller and is stable across retries."
+    ]
+  },
+  "scope": {
+    "paths": [
+      "src/**"
+    ],
+    "dependencies": []
+  },
+  "test": {
+    "path": "test/payments/everrule/ER-INC-482.test.ts",
+    "runner": "vitest",
+    "required": true,
+    "sha256": "7b46e0a526c963b13805e27a27fcf2a594e6841aa023c93801df432da2f2a26a"
+  },
+  "verification_target": {
+    "base": "b788ec4a430a2924c3f6eebcf8065a8b3440e2e0",
+    "merge": "b8e2902e6cfbe3317d1693c210a9b6d7d5997876"
+  },
+  "loopholes": [],
+  "approval": {
+    "status": "draft"
+  },
+  "ownership": {}
+}
