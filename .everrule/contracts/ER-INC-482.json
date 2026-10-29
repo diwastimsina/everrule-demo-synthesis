@@ -1,52 +1,10 @@
 {
-  "schema": "everrule-contract/v1",
-  "hash_algorithm": "sha256",
   "id": "ER-INC-482",
-  "version": 1,
-  "incident": {
-    "id": "INC-482",
-    "title": "INC-482: duplicate posted charge on retry (synthetic)",
-    "fix_pr": "https://github.com/diwastimsina/everrule-demo-synthesis/pull/1"
-  },
-  "failure_class": "duplicate_side_effect",
-  "behavior": {
-    "profile": {
-      "id": "duplicate_side_effect.sequential",
-      "version": 1
-    },
-    "operation": "payments.process",
-    "inputs": {
-      "request_type": "payment_request",
-      "identity_type": "payment_idempotency_key"
-    },
-    "preconditions": {
-      "request_is_valid": true,
-      "initial_successful_effect_count": 0
-    },
-    "observation": {
-      "concept": "payments.posted_charge",
-      "measure": "successful_effect_count",
-      "correlation": "same_request_identity"
-    },
-    "expectations": {
-      "after_first_invocation": 1,
-      "after_repeat_invocation": 1,
-      "first_outcome": "success",
-      "repeat_outcome": "success"
-    },
-    "execution": {
-      "ordering": "sequential",
-      "completion": "await_each_invocation",
-      "isolation": "fresh_scenario_state",
-      "effects_visibility": "immediate_on_completion",
-      "side_effect_environment": "test_only"
-    }
-  },
-  "requirement": {
-    "statement": "A retry must never create a second posted charge for the same idempotency key.",
-    "assumptions": [
-      "The idempotency key is supplied by the caller and is stable across retries."
-    ]
+  "test": {
+    "path": "test/payments/everrule/ER-INC-482.test.ts",
+    "runner": "vitest",
+    "sha256": "7b46e0a526c963b13805e27a27fcf2a594e6841aa023c93801df432da2f2a26a",
+    "required": true
   },
   "scope": {
     "paths": [
@@ -54,19 +12,79 @@
     ],
     "dependencies": []
   },
-  "test": {
-    "path": "test/payments/everrule/ER-INC-482.test.ts",
-    "runner": "vitest",
-    "required": true,
-    "sha256": "7b46e0a526c963b13805e27a27fcf2a594e6841aa023c93801df432da2f2a26a"
+  "schema": "everrule-contract/v1",
+  "version": 1,
+  "approval": {
+    "status": "approved",
+    "rationale": "The test reproduces INC-482 on the broken commit and passes on the fix.",
+    "approved_at": "2026-10-29T22:32:50.543Z",
+    "approver_name": "Diwas Timsina",
+    "approver_role": "Payments service owner",
+    "contract_hash": "8c9fce54310063363f68a2991a80e0942fb19ae3ca6a7533f06e4c1d5f0e8bc5"
   },
+  "behavior": {
+    "inputs": {
+      "request_type": "payment_request",
+      "identity_type": "payment_idempotency_key"
+    },
+    "profile": {
+      "id": "duplicate_side_effect.sequential",
+      "version": 1
+    },
+    "execution": {
+      "ordering": "sequential",
+      "isolation": "fresh_scenario_state",
+      "completion": "await_each_invocation",
+      "effects_visibility": "immediate_on_completion",
+      "side_effect_environment": "test_only"
+    },
+    "operation": "payments.process",
+    "observation": {
+      "concept": "payments.posted_charge",
+      "measure": "successful_effect_count",
+      "correlation": "same_request_identity"
+    },
+    "expectations": {
+      "first_outcome": "success",
+      "repeat_outcome": "success",
+      "after_first_invocation": 1,
+      "after_repeat_invocation": 1
+    },
+    "preconditions": {
+      "request_is_valid": true,
+      "initial_successful_effect_count": 0
+    }
+  },
+  "incident": {
+    "id": "INC-482",
+    "title": "INC-482: duplicate posted charge on retry (synthetic)",
+    "fix_pr": "https://github.com/diwastimsina/everrule-demo-synthesis/pull/1"
+  },
+  "loopholes": [],
+  "ownership": {},
+  "requirement": {
+    "statement": "A retry must never create a second posted charge for the same idempotency key.",
+    "assumptions": [
+      "The idempotency key is supplied by the caller and is stable across retries."
+    ]
+  },
+  "verification": {
+    "mode": "exact",
+    "verified_at": "2026-10-29T22:30:30.588Z",
+    "fixed_result": "pass",
+    "broken_result": "fail",
+    "intent_digest": "sha256:71f333dae59cfea3f9dc8c5eccd9b42317a9c8d21cfa9653db2f1587f67bdd96",
+    "fixed_revision": "b8e2902e6cfbe3317d1693c210a9b6d7d5997876",
+    "broken_revision": "b788ec4a430a2924c3f6eebcf8065a8b3440e2e0",
+    "case_set_digest": "sha256:2378d94614a69f7853092863902f68be1935b44c37ae97687b34882405709a23",
+    "candidate_digest": "sha256:f6b88e7c11a9ac6cc9ddf6cab7e689b232a1e681c0208bf438fee663c0961673",
+    "binding_set_digest": "sha256:8feba3bb01a5667e89c46879364d38ffe2fbf66d7c4eeb86a549bf8236d845dd",
+    "verification_protocol_version": "historical-sequential-v2"
+  },
+  "failure_class": "duplicate_side_effect",
+  "hash_algorithm": "sha256",
   "verification_target": {
     "base": "b788ec4a430a2924c3f6eebcf8065a8b3440e2e0",
     "merge": "b8e2902e6cfbe3317d1693c210a9b6d7d5997876"
-  },
-  "loopholes": [],
-  "approval": {
-    "status": "draft"
-  },
-  "ownership": {}
+  }
 }
