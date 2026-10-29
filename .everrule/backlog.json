@@ -1,0 +1,11 @@
+{
+  "schema": "everrule-backlog/v1",
+  "incidents": [
+    {
+      "key": "INC-482",
+      "eligibility": "PENDING_REVIEW",
+      "fix_pr": 8,
+      "updated_at": "2026-10-29T23:44:24.696Z"
+    }
+  ]
+}
