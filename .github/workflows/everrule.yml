@@ -17,7 +17,7 @@ jobs:
       # Install step chosen by EverRule from typed by Diwas Timsina; edit it if your CI installs differently.
       - run: |
           npx --yes pnpm@9.15.9 install --no-frozen-lockfile
-      - uses: everrule/prevent-action@5c4fa56d4c67aa8602cfc09206583c1e83fa0eb9
+      - uses: everrule/prevent-action@v1
         with: { mode: evaluate }
   everrule-verify:               # never required; proves a draft before approval
     if: github.event_name == 'push'
@@ -25,5 +25,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
-      - uses: everrule/prevent-action@5c4fa56d4c67aa8602cfc09206583c1e83fa0eb9
+      - uses: everrule/prevent-action@v1
         with: { mode: verify, install-command: "npx --yes pnpm@9.15.9 install --no-frozen-lockfile" }
