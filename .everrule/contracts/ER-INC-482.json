@@ -8,7 +8,7 @@
   },
   "scope": {
     "paths": [
-      "src/**"
+      "src/payments/**"
     ],
     "dependencies": []
   },
