@@ -8,7 +8,7 @@
   },
   "scope": {
     "paths": [
-      "src/**"
+      "src/payments/**"
     ],
     "dependencies": []
   },
@@ -16,11 +16,11 @@
   "version": 1,
   "approval": {
     "status": "approved",
-    "rationale": "The test reproduces INC-482 on the broken commit and passes on the fix.",
-    "approved_at": "2026-10-29T23:56:57.814Z",
     "approver_name": "Diwas Timsina",
     "approver_role": "Payments service owner",
-    "contract_hash": "a2aaed78023f61426ce2d171109bd3aeff0302a3b8ae4d2c08932d084d305bdf"
+    "approved_at": "2026-10-30T00:02:01.538Z",
+    "rationale": "Narrow the protection to the payments code it guards.",
+    "contract_hash": "eb728f7c4ebb0f4c02e1ff6352fe1f086b945117ce54488fa9ac9f86dc51466b"
   },
   "behavior": {
     "inputs": {
